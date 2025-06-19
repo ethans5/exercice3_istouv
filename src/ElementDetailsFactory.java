@@ -1,8 +1,11 @@
- 
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 //A utility class converting element description to the corresponding element instance
+/**
+ * Utility factory that converts textual element descriptions into
+ * concrete {@link Element} instances.
+ */
 public class ElementDetailsFactory {
     public static void main(String[] args) {
         Element details = ElementDetailsFactory.getPaintingElement("island name: Madagascar, diameter: 8");
@@ -22,6 +25,13 @@ public class ElementDetailsFactory {
     private final static String KID_CAPTURE_PATTERN = "birth year: (\\d+), hair color: (\\w+), width: (\\d+), height: (\\d+)";
     private final static String ISLAND_CAPTURE_PATTERN = "name: (\\w+), diameter: (\\d+)";
     private final static String LAKE_CAPTURE_PATTERN = "name: (\\w+), diameter: (\\d+)";
+    /**
+     * Parses a line from the description file and creates the corresponding
+     * {@link Element} instance.
+     *
+     * @param description textual element description
+     * @return created element
+     */
     public static Element getPaintingElement(String description){
         Matcher pathMatcher = getMatcher(PATH_CAPTURE_PATTERN, description);
         String elementPath = pathMatcher.group(1);
@@ -55,18 +65,21 @@ public class ElementDetailsFactory {
                         Color.valueOf(matcher.group(1)),
                         Integer.parseInt(matcher.group(2)),
                         elementPath
-                    );
+                );
             case "kid":
                 matcher=getMatcher(KID_CAPTURE_PATTERN, elementDescription);
                 return new Kid(Double.parseDouble(matcher.group(3)),
                         Double.parseDouble(matcher.group(4)), Integer.parseInt(matcher.group(1)),
                         Color.valueOf(matcher.group(2)),elementPath);
             case "kite":matcher=getMatcher(KITE_CAPTURE_PATTERN, elementDescription);
-                        return new Kite(Double.parseDouble(matcher.group(2)),
+                return new Kite(Double.parseDouble(matcher.group(2)),
                         Double.parseDouble(matcher.group(3)), Color.valueOf(matcher.group(1)) ,elementPath);
         }
         throw new RuntimeException("wrong file type");
     }
+    /**
+     * Utility helper to build a {@link Matcher} for the given regex.
+     */
     public static Matcher getMatcher(String regex, String toMatch){
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(toMatch);
