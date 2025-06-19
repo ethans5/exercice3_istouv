@@ -15,7 +15,7 @@ public class LongPrint implements PaintingVisitor {
     @Override
     public void visit(Boat boat) {
         this.longPrint += "A boat made of "
-                + boat.getMaterial()
+                + boat.material.toString().toLowerCase()
                 + " material. ";
 
     }
@@ -39,7 +39,7 @@ public class LongPrint implements PaintingVisitor {
 
     @Override
     public void visit(Kid kid) {
-        int age = (2023 - kid.getBirthYear() );
+        int age = (2025 - kid.getBirthYear() );
         this.longPrint += "A "
                 + age
                 + " year old kid with "
@@ -57,7 +57,7 @@ public class LongPrint implements PaintingVisitor {
         } else {
             this.longPrint += "A lake named "
                     + lake.getName()
-                    + " containing ";
+                    + " containing: ";
         }
 
     }
@@ -71,7 +71,7 @@ public class LongPrint implements PaintingVisitor {
         } else {
             this.longPrint += "An island named "
                     + island.getName()
-                    + " containing ";
+                    + " containing: ";
         }
 
 
